@@ -6,7 +6,7 @@ import { apiKey } from "../constants/config/biconomy"
 import { NFTest } from "../constants/deployments"
 import { Biconomy } from "@biconomy/mexa"
 
-const clientId = "YOUR_CLIENT_ID" // get from https://dashboard.web3auth.io
+const clientId = "BORM_trX_nKcp_60_gUJ3f0a0AJY-joB2WJdIxO2HyXfyQUaYdybZIK8QciNCFPPAK6iz8jbRFEqz487GYi2qkA" // get from https://dashboard.web3auth.io
 
 function App() {
   const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null)
