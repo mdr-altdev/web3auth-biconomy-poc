@@ -11,11 +11,16 @@ contract NFTest is ERC2771Context, ERC721, Ownable {
 
     Counters.Counter private _tokenIdCounter;
 
-    constructor(address trustedForwarder)
+    // The Biconomy SDK requires trustedForwarder to be part of the ABI, so
+    // we need to expose this (OpenZeppelin's ERC2771Context makes it private)
+    address immutable public trustedForwarder;
+
+    constructor(address _trustedForwarder)
         ERC721("NFTest", "MDR")
-        ERC2771Context(trustedForwarder)
+        ERC2771Context(_trustedForwarder)
     {
         address owner = _msgSender();
+        trustedForwarder = _trustedForwarder;
     }
 
     function safeMint(address to) public onlyOwner {
