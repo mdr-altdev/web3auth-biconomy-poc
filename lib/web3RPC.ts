@@ -114,25 +114,13 @@ export default class EthereumRpc {
 
   async mintNft(): Promise<any> {
     try {
-      console.log("provider", this.provider)
-
       const web3 = new Web3(this.provider as any)
-
-      console.log(web3)
-
       const selfAddress = (await web3.eth.getAccounts())[0]
-
       const nfTestContract = new web3.eth.Contract(ERC721ABI as any, NFTest)
-
-      console.log("nfTestContract", nfTestContract)
-
-      // const tx = await nfTestContract.safeMint(selfAddress)
 
       const receipt = await nfTestContract.methods.safeMint(selfAddress).send({
         from: selfAddress,
       })
-
-      console.log("tx", receipt)
 
       return receipt
     } catch (error) {
