@@ -13,7 +13,7 @@ contract NFTest is ERC2771Context, ERC721, Ownable {
 
     // The Biconomy SDK requires trustedForwarder to be part of the ABI, so
     // we need to expose this (OpenZeppelin's ERC2771Context makes it private)
-    address immutable public trustedForwarder;
+    address public immutable trustedForwarder;
 
     constructor(address _trustedForwarder)
         ERC721("NFTest", "MDR")
@@ -23,7 +23,11 @@ contract NFTest is ERC2771Context, ERC721, Ownable {
         trustedForwarder = _trustedForwarder;
     }
 
-    function safeMint(address to) public onlyOwner {
+    // This contract is ultra open bar, anybody can mint anything
+    // Do note though that just stacking an onlyOwner on top of that is slightly more
+    // complex than using the regular Ownable contract! msg.sender should be _msgSender,
+    // so a "custom" onlyOwner should be applied
+    function safeMint(address to) public {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
