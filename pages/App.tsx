@@ -149,15 +149,15 @@ function App() {
       <button onClick={getBalance} className="card">
         Get Balance
       </button>
-      <button onClick={sendTransaction} className="card">
+      {/* <button onClick={sendTransaction} className="card">
         Send Transaction
-      </button>
+      </button> */}
       <button onClick={mintNft} className="card">
         Mint NFT
       </button>
-      <button onClick={signMessage} className="card">
+      {/* <button onClick={signMessage} className="card">
         Sign Message
-      </button>
+      </button> */}
       <button onClick={logout} className="card">
         Log Out
       </button>
@@ -178,18 +178,13 @@ function App() {
     <div className="container">
       <h1 className="title">
         <a target="_blank" href="http://web3auth.io/" rel="noreferrer">
-          Web3Auth
+          Web3Auth + ERC2771 relay
         </a>
         & ReactJS Example
       </h1>
 
       <div className="grid">{provider ? loggedInView : unloggedInView}</div>
 
-      <footer className="footer">
-        <a href="https://github.com/Web3Auth/Web3Auth/tree/master/examples/react-app" target="_blank" rel="noopener noreferrer">
-          Source code
-        </a>
-      </footer>
     </div>
   )
 }
