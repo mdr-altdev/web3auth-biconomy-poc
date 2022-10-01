@@ -13,6 +13,7 @@ function App() {
   const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null)
   const [biconomy, setBiconomy] = useState<Biconomy | null>(null)
   const [provider, setProvider] = useState<ExternalProvider | null>(null)
+  const [outputTxt, setOutputTxt] = useState("")
 
   useEffect(() => {
     const init = async () => {
@@ -84,6 +85,7 @@ function App() {
     const rpc = new RPC(provider)
     const chainId = await rpc.getChainId()
     console.log(chainId)
+    setOutputTxt(JSON.stringify(["Chain ID", chainId], null, 2))
   }
   const getAccounts = async () => {
     if (!provider) {
@@ -93,6 +95,7 @@ function App() {
     const rpc = new RPC(provider)
     const address = await rpc.getAccounts()
     console.log(address)
+    setOutputTxt(JSON.stringify(["Address", address], null, 2))
   }
 
   const getBalance = async () => {
@@ -103,6 +106,7 @@ function App() {
     const rpc = new RPC(provider)
     const balance = await rpc.getBalance()
     console.log(balance)
+    setOutputTxt(JSON.stringify(["Balance", balance], null, 2))
   }
 
   const sendTransaction = async () => {
@@ -123,6 +127,7 @@ function App() {
     const rpc = new RPC(provider)
     const receipt = await rpc.mintNft()
     console.log(receipt)
+    setOutputTxt(JSON.stringify(["Message from RPC node", receipt], null, 2))
   }
 
   const signMessage = async () => {
@@ -162,8 +167,8 @@ function App() {
         Log Out
       </button>
 
-      <div id="console" style={{ whiteSpace: "pre-line" }}>
-        <p style={{ whiteSpace: "pre-line" }}></p>
+      <div id="console" className="code" style={{ whiteSpace: "pre-line" }}>
+        <p style={{ whiteSpace: "pre-line" }}>{outputTxt}</p>
       </div>
     </>
   )
@@ -184,7 +189,6 @@ function App() {
       </h1>
 
       <div className="grid">{provider ? loggedInView : unloggedInView}</div>
-
     </div>
   )
 }
