@@ -33,6 +33,7 @@ function App() {
             debug: true,
             contractAddresses: [NFTest], // list of contract address you want to enable gasless on
           })
+          await biconomy.init()
 
           // setProvider(web3auth.provider)
           setProvider(biconomy.provider)
