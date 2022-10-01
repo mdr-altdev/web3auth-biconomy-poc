@@ -100,18 +100,7 @@ export default class EthereumRpc {
       const nfTestContract = new ethers.Contract(NFTest, ERC721ABI, signer)
       const tx = await nfTestContract.safeMint(selfAddress)
 
-      // const destination = "0x40e1c367Eca34250cAF1bc8330E9EddfD403fC56";
-
-      // // Convert 1 ether to wei
-      // const amount = ethers.utils.parseEther("0.001");
-
-      // Submit transaction to the blockchain
-      // const tx = await signer.sendTransaction({
-      //   to: destination,
-      //   value: amount,
-      //   maxPriorityFeePerGas: "5000000000", // Max priority fee per gas
-      //   maxFeePerGas: "6000000000000", // Max fee per gas
-      // });
+      console.log("tx", tx)
 
       // Wait for transaction to be mined
       const receipt = await tx.wait()

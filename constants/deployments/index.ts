@@ -1,1 +1,1 @@
-export const NFTest = "0xaf3821347626B6B32eb2cC25Ba4DdB533AF482e8"
+export const NFTest = "0xc647b02467f4D13bE48C18AEc098B6ba40f68b73"

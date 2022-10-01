@@ -10,6 +10,7 @@ const clientId = "BORM_trX_nKcp_60_gUJ3f0a0AJY-joB2WJdIxO2HyXfyQUaYdybZIK8QciNCF
 
 function App() {
   const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null)
+  const [biconomy, setBiconomy] = useState<Biconomy | null>(null)
   const [provider, setProvider] = useState<ExternalProvider | null>(null)
 
   useEffect(() => {
@@ -35,6 +36,7 @@ function App() {
           })
           await biconomy.init()
 
+          setBiconomy(biconomy)
           // setProvider(web3auth.provider)
           setProvider(biconomy.provider)
         }
