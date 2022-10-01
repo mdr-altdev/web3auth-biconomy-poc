@@ -5,8 +5,9 @@ import "OpenZeppelin/openzeppelin-contracts@4.7.3/contracts/token/ERC721/ERC721.
 import "OpenZeppelin/openzeppelin-contracts@4.7.3/contracts/access/Ownable.sol";
 import "OpenZeppelin/openzeppelin-contracts@4.7.3/contracts/utils/Counters.sol";
 import "OpenZeppelin/openzeppelin-contracts@4.7.3/contracts/metatx/ERC2771Context.sol";
+import "OpenZeppelin/openzeppelin-contracts@4.7.3/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
-contract NFTest is ERC2771Context, ERC721, Ownable {
+contract NFTest is ERC2771Context, ERC721, ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIdCounter;
@@ -31,6 +32,10 @@ contract NFTest is ERC2771Context, ERC721, Ownable {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
+        _setTokenURI(
+            tokenId,
+            "ipfs://QmUiJCsFcYLkQf13ZTbkmq2TdKEJWNMyxxNdgDT24HgH2h"
+        );
     }
 
     function _msgSender()
@@ -49,5 +54,21 @@ contract NFTest is ERC2771Context, ERC721, Ownable {
         returns (bytes calldata)
     {
         return ERC2771Context._msgData();
+    }
+
+    function _burn(uint256 tokenId)
+        internal
+        override(ERC721, ERC721URIStorage)
+    {
+        super._burn(tokenId);
+    }
+
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        override(ERC721, ERC721URIStorage)
+        returns (string memory)
+    {
+        return super.tokenURI(tokenId);
     }
 }
