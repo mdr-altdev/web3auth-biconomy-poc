@@ -4,7 +4,7 @@ import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base"
 // import RPC, { ExternalProvider } from "../lib/ethersRPC"
 import RPC, { ExternalProvider } from "../lib/web3RPC"
 import { apiKey } from "../constants/config/biconomy"
-import { NFTest } from "../constants/deployments"
+import { HelloWriter, NFTest } from "../constants/deployments"
 import { Biconomy } from "@biconomy/mexa"
 
 const clientId = "BORM_trX_nKcp_60_gUJ3f0a0AJY-joB2WJdIxO2HyXfyQUaYdybZIK8QciNCFPPAK6iz8jbRFEqz487GYi2qkA" // get from https://dashboard.web3auth.io
@@ -34,7 +34,7 @@ function App() {
           const biconomy = new Biconomy(web3auth.provider, {
             apiKey: apiKey,
             debug: true,
-            contractAddresses: [NFTest], // list of contract address you want to enable gasless on
+            contractAddresses: [NFTest, HelloWriter], // list of contract address you want to enable gasless on
           })
           await biconomy.init()
 
@@ -119,6 +119,17 @@ function App() {
     console.log(receipt)
   }
 
+  const writeContract = async () => {
+    if (!provider) {
+      console.log("provider not initialized yet")
+      return
+    }
+    const rpc = new RPC(provider)
+    const receipt = await rpc.writeContract()
+    console.log(receipt)
+    setOutputTxt(JSON.stringify(["Message from RPC node", receipt], null, 2))
+  }
+
   const mintNft = async () => {
     if (!provider) {
       console.log("provider not initialized yet")
@@ -154,9 +165,9 @@ function App() {
       <button onClick={getBalance} className="card">
         Get Balance
       </button>
-      {/* <button onClick={sendTransaction} className="card">
-        Send Transaction
-      </button> */}
+      <button onClick={writeContract} className="card">
+        Write to contract
+      </button>
       <button onClick={mintNft} className="card">
         Mint NFT
       </button>

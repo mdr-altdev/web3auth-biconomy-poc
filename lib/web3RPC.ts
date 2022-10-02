@@ -1,7 +1,7 @@
 import type { SafeEventEmitterProvider } from "@web3auth/base"
 import Web3 from "web3"
 import { ERC721ABI } from "../constants/abi"
-import { NFTest } from "../constants/deployments"
+import { HelloWriter, NFTest } from "../constants/deployments"
 
 export type ExternalProvider = {
   isMetaMask?: boolean
@@ -126,5 +126,20 @@ export default class EthereumRpc {
     } catch (error) {
       return error as string
     }
+  }
+
+  async writeContract(): Promise<any> {
+    const web3 = new Web3(this.provider as any)
+    const fromAddress = (await web3.eth.getAccounts())[0]
+
+    const contractABI =
+      '[ { "inputs": [ { "internalType": "string", "name": "initMessage", "type": "string" } ], "stateMutability": "nonpayable", "type": "constructor" }, { "inputs": [ { "internalType": "string", "name": "newMessage", "type": "string" } ], "name": "update", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "message", "outputs": [ { "internalType": "string", "name": "", "type": "string" } ], "stateMutability": "view", "type": "function" } ]'
+    const contractAddress = HelloWriter
+    const contract = new web3.eth.Contract(JSON.parse(contractABI), contractAddress)
+    // Send transaction to smart contract to update message and wait to finish
+    const receipt = await contract.methods.update("Journey to Web3Auth begins.").send({
+      from: fromAddress,
+    })
+    return receipt
   }
 }
