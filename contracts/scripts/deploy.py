@@ -10,4 +10,4 @@ def main():
     trusted_forwarder_mumbai = "0x69015912AA33720b842dCD6aC059Ed623F28d9f7"
 
     acct = accounts.load("mumbai_test_acc")
-    return NFTest.deploy(trusted_forwarder_mumbai, {'from': acct})
+    return NFTest.deploy(trusted_forwarder_mumbai, {'from': acct}, publish_source = True)

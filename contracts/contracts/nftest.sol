@@ -34,7 +34,7 @@ contract NFTest is ERC2771Context, ERC721, ERC721URIStorage, Ownable {
         _safeMint(to, tokenId);
         _setTokenURI(
             tokenId,
-            "ipfs://QmUiJCsFcYLkQf13ZTbkmq2TdKEJWNMyxxNdgDT24HgH2h"
+            "ipfs://QmUrw8p54suhQJHoDgrc9csY9FemXHRfesVbux68Ttt2sX"
         );
     }
 
